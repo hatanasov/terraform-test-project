@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    TF_PLAN_FILE: "terraform.tfplan"
+    TF_PLAN_PLAINTEXT_FILE: "terraform_plan.txt"
 phases:
   install:
     commands:
@@ -18,8 +22,10 @@ phases:
   build:
     commands:
       - echo "Generating Terraform plan..."
-      - terraform plan -input=false -out=${TF_PLAN_FILE}
-      - echo "Terraform plan generated as ${TF_PLAN_FILE}."
+      - terraform plan -input=false -out=$TF_PLAN_FILE
+      - echo "Terraform plan generated as $TF_PLAN_FILE."
+      - terraform show -no-color "$TF_PLAN_FILE" > "$TF_PLAN_PLAINTEXT_FILE"
+      - echo "Terraform plan generated as $TF_PLAN_PLAINTEXT_FILE."
 
   post_build:
     commands:
@@ -27,6 +33,6 @@ phases:
 
 artifacts:
   files:
-    - "**/*"
-  name: terraform-plan-artifact
-  base-directory: "$TF_CODE_DIR"
+    - $TF_PLAN_PLAINTEXT_FILE
+  base-directory: $TF_CODE_DIR
+  name: "terraform-plan-plaintext-artifact"
