@@ -1,0 +1,88 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "codebuild:*",
+        "s3:*",
+        "codepipeline:*",
+        "codedeploy:*",
+        "logs:*",
+        "sns:*",
+        "ssm:*",
+        "cloudwatch:*",
+        "autoscaling:*",
+        "iam:*",
+        "sts:*",
+        "codeartifact:*",
+        "ecr:*"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Action": [
+        "events:DeleteRule",
+        "events:DescribeRule",
+        "events:DisableRule",
+        "events:EnableRule",
+        "events:ListTargetsByRule",
+        "events:ListRuleNamesByTarget",
+        "events:ListTagsForResource",
+        "events:PutRule",
+        "events:PutTargets",
+        "events:PutEvents",
+        "events:PutPermission",
+        "events:RemovePermission",
+        "events:DescribeEventBus",
+        "events:RemoveTargets",
+        "events:TagResource",
+        "events:UntagResource"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:PutParameter",
+        "ssm:GetParameter",
+        "ssm:GetParameters"
+      ],
+      "Resource": "arn:aws:ssm:*:*:parameter/CodeBuild/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:PutParameter",
+        "ssm:GetParameter"
+      ],
+      "Resource": "arn:aws:ssm:*:*:parameter/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:*"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CodestarNotifications",
+      "Effect": "Allow",
+      "Action": [
+        "codestar-notifications:ListEventTypes",
+        "codestar-notifications:ListTargets",
+        "codestar-notifications:ListNotificationRules",
+        "codestar-notifications:CreateNotificationRule",
+        "codestar-notifications:DescribeNotificationRule",
+        "codestar-notifications:UpdateNotificationRule",
+        "codestar-notifications:DeleteTarget",
+        "codestar-notifications:Subscribe",
+        "codestar-notifications:Unsubscribe",
+        "codestar-notifications:ListTagsForResource",
+        "codestar-notifications:DeleteNotificationRule"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Id": "CodePipelineCodeBuildArtifactPolicy",
+    "Statement": [
+        {
+            "Sid": "AllowCodePipelineAndCodeBuildAccess",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "${CODEPIPELINE_ROLE_ARN}",
+                    "${CODEBUILD_ROLE_ARN}"
+                ]
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:ListBucket",
+                "s3:Describe*"
+            ],
+            "Resource": [
+                "${BUCKET_ARN}",
+                "${BUCKET_ARN}/*"
+            ]
+        }
+    ]
+}

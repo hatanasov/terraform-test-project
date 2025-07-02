@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "No explicit install needed as Terraform is in custom ECR image."
+      - terraform version # Verify Terraform is available in the image
+
+  pre_build:
+    commands:
+      - echo "Changing to Terraform code directory: $TF_CODE_DIR"
+      - if [ -n "$TF_CODE_DIR" ]; then cd "$TF_CODE_DIR"; fi
+      - echo "Initializing Terraform with S3 backend: $TF_STATE_BUCKET in $TF_REGION"
+      - terraform init -backend-config="bucket=$TF_STATE_BUCKET" -backend-config="region=$TF_REGION" -input=false
+      - echo "Terraform initialization complete."
+
+  build:
+    commands:
+      - echo "Generating Terraform plan..."
+      - terraform plan -input=false -out=${TF_PLAN_FILE}
+      - echo "Terraform plan generated as ${TF_PLAN_FILE}."
+
+  post_build:
+    commands:
+      - echo "Build complete. Outputting artifacts."
+
+artifacts:
+  files:
+    - ${TF_PLAN_FILE}
+  discard-paths: yes # Ensures only the plan file is in the root of the artifact
