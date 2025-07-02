@@ -12,7 +12,7 @@ resource "aws_codebuild_project" "build-tf-plan" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image                       = "980859860798.dkr.ecr.eu-west-1.amazonaws.com/cicd_images:latest"
     type                        = "LINUX_CONTAINER"
-    image_pull_credentials_type = "CODEBUILD"
+    image_pull_credentials_type = "SERVICE_ROLE"
     privileged_mode             = true
 
     environment_variable {
@@ -35,5 +35,6 @@ resource "aws_codebuild_project" "build-tf-plan" {
 
   source {
     type      = "CODEPIPELINE"
+    buildspec = "terraform/cd/buildspec.yaml"
   }
 }

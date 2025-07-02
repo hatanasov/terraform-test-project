@@ -48,12 +48,12 @@ resource "aws_codepipeline" "wl_pipeline" {
     name = "ApprovePlan"
 
     action {
-      name            = "ManualApproval"
-      category        = "Approval"
-      owner           = "AWS"
-      provider        = "Manual"
+      name     = "ManualApproval"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
       # input_artifacts = ["PlanArtifact"]
-      version         = "1"
+      version = "1"
 
       configuration = {
         CustomData = "Review the Terraform plan.out artifact in S3 before approving: s3://${aws_s3_bucket.cicd_artifacts.arn}/PlanArtifact/$CODEBUILD_BUILD_ID/plan.out"

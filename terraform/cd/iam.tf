@@ -6,7 +6,7 @@ resource "aws_iam_role" "codebuild" {
 resource "aws_iam_role_policy" "codebuild" {
   name   = "test-workload-policy-cicd-codebuild"
   role   = aws_iam_role.codebuild.name
-  policy = templatefile("${path.module}/policies/cicd_d eploy_policy.json", {})
+  policy = templatefile("${path.module}/policies/cicd_deploy_policy.json", {})
 }
 
 resource "aws_iam_role" "codepipeline" {
