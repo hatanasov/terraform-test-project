@@ -1,7 +1,9 @@
 resource "aws_s3_bucket" "cicd_artifacts" {
   bucket = "test-workload-cicd-artifacts-${data.aws_caller_identity.current.account_id}"
 }
-
+output "artifact_bucket" {
+  value = aws_s3_bucket.cicd_artifacts.bucket
+}
 # resource "aws_s3_bucket_policy" "allow_access_from_another_account" {
 #   bucket = aws_s3_bucket.cicd_artifacts.id
 #   policy = templatefile("${path.module}/policies/s3_bucket_policy.json",
