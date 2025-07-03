@@ -33,7 +33,7 @@ resource "aws_codebuild_project" "build-tf-plan" {
     }
     environment_variable {
       name  = "CICD_ARTIFACT_BUCKET"
-      value = aws_s3_bucket.cicd-cicd_artifacts.bucket
+      value = aws_s3_bucket.cicd_artifacts.bucket
     }
   }
 
