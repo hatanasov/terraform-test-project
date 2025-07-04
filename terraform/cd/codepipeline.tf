@@ -56,7 +56,8 @@ resource "aws_codepipeline" "wl_pipeline" {
       version = "1"
 
       configuration = {
-        CustomData = "Review the Terraform plan.out artifact in S3 before approving: s3://${aws_s3_bucket.cicd_artifacts.arn}/PlanArtifact/$CODEBUILD_BUILD_ID/plan.out"
+        CustomData = "Review the Terraform plan artifact in S3 before approving: "
+        ExternalEntityLink = "https://${aws_s3_bucket.cicd_artifacts.bucket}.s3.eu-west-1.amazonaws.com/terraform_plan.txt"
       }
     }
   }
